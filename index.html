@@ -76,9 +76,9 @@
 
 
 	<div id="FileDrop">
-		<input type="file" accept="audio/midi">
+		<input type="file" accept="audio/midi" id="midiFile">
 		Add MIDI here
-		<input type="file" accept=".hopscotch">
+		<input type="file" accept=".hopscotch" id="hopscotchFile">
 		Add Hopscotch JSON (.hopscotch) here.
 	</div>
 
@@ -111,15 +111,42 @@
 			fileDrop.addEventListener("drop", function(){
 				fileDrop.classList.remove("Hover");
 			});
+			
+			function download(filename, text) {
+  const element = document.createElement('a');
+  element.setAttribute('href', 'data:text/plain;charset=utf-8,' + encodeURIComponent(text));
+  element.setAttribute('download', filename);
+
+  element.style.display = 'none';
+  document.body.appendChild(element);
+
+  element.click();
+
+  document.body.removeChild(element);
+}
 
 			document.querySelector("#FileDrop input").addEventListener("change", function(e){
 				//get the files
 				console.log("hi");
-				var files = e.target.files;
-				if (files.length > 0){
-					var file = files[0];
+				if (document.querySelector('#midiFile').files.length > 0 && document.querySelector('#hopscotchFile').files.length > 0) {
+					var file = document.querySelector('#midiFile').files[0];
 					//document.querySelector("#FileDrop #Text").textContent = file.name;
-					parseFile(file);
+					parseFile(file, (code) => {
+					const fr = new FileReader();
+						fr.onload = (e) => {
+							const file = e.target.result;
+							const json = JSON.parse(file);
+							const midi = JSON.parse(code);
+							const ability = {blocks:[],createdAt:'',abilityID:"Petrichormusic",name:"music"}
+							for (let i = 0; i < midi.length; i ++) {
+								ability.blocks.push(midi[i]);
+							}
+							json.abilities.push(ability);
+							const output = JSON.stringify(json);
+							download(file.name, output);
+						}
+						fr.readAsText(document.querySelector('#hopscotchFile').files[0])
+					});
 				}
 			});
 
@@ -127,7 +154,7 @@
 		}
 
 		
-		function parseFile(file){
+		function parseFile(file, output){
 			//read the file
 			var reader = new FileReader();
 			reader.onload = function(e){
@@ -244,7 +271,7 @@
 				} // end for
 
 				document.querySelector("#ResultsText").value = hopscotchCode;
-				
+				output(hopscotchCode);
 
 			};
 			reader.readAsBinaryString(file);

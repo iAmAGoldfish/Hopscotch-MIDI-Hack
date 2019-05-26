@@ -80,6 +80,7 @@
 		Add MIDI here
 		<input type="file" accept=".hopscotch" id="hopscotchFile">
 		Add Hopscotch JSON (.hopscotch) here.
+		<button id="makeCode">Make project</button>
 	</div>
 
 	<div id="Results">
@@ -125,7 +126,7 @@
   document.body.removeChild(element);
 }
 
-			document.querySelector("#FileDrop input").addEventListener("change", function(e){
+			document.querySelector("#makeCode").addEventListener("click", function(e){
 				//get the files
 				console.log("hi");
 				if (document.querySelector('#midiFile').files.length > 0 && document.querySelector('#hopscotchFile').files.length > 0) {

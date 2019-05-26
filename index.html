@@ -65,7 +65,7 @@
 		<p><b>Hopscotch MIDI Hack</b></p>
 	</div>
     
-    <p id="notice"><b>UPDATE 26-05-19: Added dwonload</b></p>
+    <p id="notice"><b>UPDATE 26-05-19: Added download</b></p>
 
 	<div id="Links">
             <a href="">What is the Hopscotch MIDI Hack?</a>
@@ -144,7 +144,7 @@
 							}
 							json.abilities.push(ability);
 							const output = JSON.stringify(json);
-							download(file.name, output);
+							download(document.querySelector('#hopscotchFile').files[0].name, output);
 						}
 						fr.readAsText(document.querySelector('#hopscotchFile').files[0])
 					});

@@ -65,7 +65,7 @@
 		<p><b>Hopscotch MIDI Hack</b></p>
 	</div>
     
-    <p id="notice"><b>UPDATE 26-05-19: :)</b></p>
+    <p id="notice"><b>UPDATE 26-05-19: Added dwonload</b></p>
 
 	<div id="Links">
             <a href="">What is the Hopscotch MIDI Hack?</a>
@@ -270,7 +270,7 @@
                         + "\n" + "},";
                                     
 				} // end for
-hopscotchCode = hopscotchCode.substring(0,hopscotchCode.length-1);
+hopscotchCode = '[' + hopscotchCode.substring(0,hopscotchCode.length-1) + ']';
 				document.querySelector("#ResultsText").value = hopscotchCode;
 				output(hopscotchCode);
 

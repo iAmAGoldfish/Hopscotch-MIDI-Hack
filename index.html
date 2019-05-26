@@ -77,6 +77,9 @@
 
 	<div id="FileDrop">
 		<input type="file" accept="audio/midi">
+		Add MIDI here
+		<input type="file" accept=".hopscotch">
+		Add Hopscotch JSON (.hopscotch) here.
 	</div>
 
 	<div id="Results">
@@ -241,6 +244,7 @@
 				} // end for
 
 				document.querySelector("#ResultsText").value = hopscotchCode;
+				
 
 			};
 			reader.readAsBinaryString(file);
